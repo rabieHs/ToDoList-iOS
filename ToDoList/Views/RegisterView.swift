@@ -17,7 +17,9 @@ struct RegisterView: View {
                 TextField("FullName", text: $viewModel.name).textFieldStyle(DefaultTextFieldStyle()).autocorrectionDisabled()
                 TextField("Email address", text: $viewModel.email).textFieldStyle(DefaultTextFieldStyle()).textInputAutocapitalization(.none).autocorrectionDisabled()
                 SecureField("Password", text: $viewModel.password).textFieldStyle(DefaultTextFieldStyle())
-                CustomButton(title: "Register", backgroundColor: .green, action: {})
+                CustomButton(title: "Register", backgroundColor: .green, action: {
+                    viewModel.register()
+                })
 
             }.offset(y:-50)
             Spacer()
