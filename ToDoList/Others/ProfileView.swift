@@ -12,9 +12,44 @@ struct ProfileView: View {
     var body: some View {
         NavigationView{
             VStack{
-                
-            }.navigationTitle("Profile")
+                if let user = viewModel.user {
+                    //avatar
+                    Image(systemName: "person.circle").resizable().aspectRatio(contentMode: .fit).foregroundColor(.blue).frame(width: 125,height: 125).padding()
+                    //info
+                    VStack(alignment: .leading, content: {
+                        HStack{
+                            Text("Name: ").bold()
+                            Text(user.name)
+                        }
+                        HStack{
+                            Text("Email: ").bold()
+                            Text(user.email)
+                        }
+                        HStack{
+                            Text("Member Since: ").bold()
+                            Text("\(Date(timeIntervalSince1970: user.joined).formatted(date: .abbreviated, time: .shortened))")
+                        }
+                    }).padding()
+                    
+                    
+                    //signout
+                    
+                    Button("Log out", action: {
+                        viewModel.logout()
+                    }).tint(.red)
+                    Spacer()
+                }else{
+                    Text("Loading Profile ...")
+                }
+                    
+
+            }.navigationTitle("Profile").onAppear(){
+                viewModel.fetchUser()
+            }
+            
+         
         }
+      
     }
 }
 
